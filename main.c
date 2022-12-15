@@ -1,7 +1,6 @@
 #include "monty.h"
-
+void (*f)(stack_t **stack, unsigned int line_number);
 global_t vglo;
-
 /**
  * free_vglo - frees the global variables
  *
@@ -68,7 +67,6 @@ FILE *check_input(int argc, char *argv[])
  */
 int main(int argc, char *argv[])
 {
-	void (*f)(stack_t **stack, unsigned int line_number);
 	FILE *fd;
 	size_t size = 256;
 	ssize_t nlines = 0;
