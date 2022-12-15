@@ -1,8 +1,8 @@
 #include "monty.h"
 
 /**
- * _rotrl - rotates 1st element to the bottom and 2nd to the top
- * @dooubly: linked list head
+ * _rotl - rotates 1st element to the bottom and 2nd to the top
+ * @doubly: linked list head
  * @cline: line nummber
  */
 void _rotl(stack_t **doubly, unsigned int cline)
