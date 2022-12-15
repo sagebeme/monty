@@ -1,73 +1,85 @@
 #include "monty.h"
 /**
- * _calloc - concatenate tw strings specially
- * @nmemb: number of elements
- * @size: type of elements
- * Return: nothing
+ * _strcmp - Function that compares two strings.
+ * @s1: type str compared
+ * @s2: type str compared
+ * Return: 0 if s1 and s2 are equals.
+ *         another value if they are different
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+int _strcmp(char *s1, char *s2)
 {
-	void *p = NULL;
-	unsigned int i;
+	int i;
 
-	if (nmemb == 0 || size == 0)
-	{
-		return (NULL);
-	}
-	p = malloc(nmemb * size);
-	if (p == NULL)
-	{
-		return (NULL);
-	}
-	for (i = 0; i < (nmemb * size); i++)
-	{
-		*((char *)(p) + i) = 0;
-	}
-	return (p);
+	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
+		;
+	if (s1[i] > s2[i])
+		return (1);
+	if (s1[i] < s2[i])
+		return (-1);
+	return (0);
 }
-/**
- * _realloc - change the size and copy the content
- * @ptr: malloc pointer to reallocate
- * @old_size: old number of bytes
- * @new_size: new number of Bytes
- * Return: nothing
- */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
-{
-	char *p = NULL;
-	unsigned int i;
 
-	if (new_size == old_size)
-		return (ptr);
-	if (ptr == NULL)
+/**
+ * _sch - search if a char is inside a string
+ * @s: string to review
+ * @c: char to find
+ * Return: 1 if success 0 if not
+ */
+int _sch(char *s, char c)
+{
+	int cont = 0;
+
+	while (s[cont] != '\0')
 	{
-		p = malloc(new_size);
-		if (!p)
-			return (NULL);
-		return (p);
+		if (s[cont] == c)
+		{
+			break;
+		}
+		cont++;
 	}
-	if (new_size == 0 && ptr != NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (new_size > old_size)
-	{
-		p = malloc(new_size);
-		if (!p)
-			return (NULL);
-		for (i = 0; i < old_size; i++)
-			p[i] = *((char *)ptr + i);
-		free(ptr);
-	}
+	if (s[cont] == c)
+		return (1);
 	else
+		return (0);
+}
+
+/**
+ * _strtoky - function that cut a string into tokens depending of the delimit
+ * @s: string to cut in parts
+ * @d: delimiters
+ * Return: first partition
+ */
+char *_strtoky(char *s, char *d)
+{
+	static char *ultimo;
+	int i = 0, j = 0;
+
+	if (!s)
+		s = ultimo;
+	while (s[i] != '\0')
 	{
-		p = malloc(new_size);
-		if (!p)
-			return (NULL);
-		for (i = 0; i < new_size; i++)
-			p[i] = *((char *)ptr + i);
-		free(ptr);
+		if (_sch(d, s[i]) == 0 && s[i + 1] == '\0')
+		{
+			ultimo = s + i + 1;
+			*ultimo = '\0';
+			s = s + j;
+			return (s);
+		}
+		else if (_sch(d, s[i]) == 0 && _sch(d, s[i + 1]) == 0)
+			i++;
+		else if (_sch(d, s[i]) == 0 && _sch(d, s[i + 1]) == 1)
+		{
+			ultimo = s + i + 1;
+			*ultimo = '\0';
+			ultimo++;
+			s = s + j;
+			return (s);
+		}
+		else if (_sch(d, s[i]) == 1)
+		{
+			j++;
+			i++;
+		}
 	}
-	return (p);
+	return (NULL);
 }
