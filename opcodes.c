@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
  * _push - pushes an element to the stack
  *
@@ -59,6 +58,7 @@ void _pall(stack_t **doubly, unsigned int cline)
 	}
 }
 
+
 /**
  * _pint - prints the value at the top of the stack
  *
@@ -102,6 +102,7 @@ void _pop(stack_t **doubly, unsigned int cline)
 	*doubly = (*doubly)->next;
 	free(aux);
 }
+
 
 /**
  * _swap - swaps the top two elements of the stack
